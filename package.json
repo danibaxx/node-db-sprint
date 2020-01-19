@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/danibaxx/node-db-sprint/issues"
   },
-  "homepage": "https://github.com/danibaxx/node-db-sprint#readme"
+  "homepage": "https://github.com/danibaxx/node-db-sprint#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "knex": "^0.20.8",
+    "sqlite3": "^4.1.1"
+  }
 }
