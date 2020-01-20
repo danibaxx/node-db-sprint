@@ -4,6 +4,12 @@ function findProjects() {
   return db('projects').select()
 };
 
+function findProjectsById(project_id) {
+  return db('projects')
+  .where({ project_id })
+  .first()
+};
+
 async function addProjects(data) {
   const [project_id] = await db('projects').insert(data)
   return db('projects')
@@ -11,25 +17,31 @@ async function addProjects(data) {
     .first()
 };
 
+
 function findTasks(project_id) {
-  return db('tasks as t')
+  return db('projects as p')
     .join(
-      'projects as p', 
-      't.project_id', 
-      'p.id'
+      'tasks as t', 
+      't.task_id', 
+      't.project_id'
     )
     .where({ project_id })
-    .select(
-      't.id', 
+    .select( 
       't.project_id', 
       't.task_description', 
       't.task_notes', 
       't.task_completed', 
-      'p.project_name'
+      'p.project_name',
+      'p.project_description'
     )
+};
+
+async function addTasks(data) {
+  const [task_id] = await db('tasks').insert(data)
+  return db('tasks')
+    .where({ task_id })
     .first()
 }
-
 
 
 
@@ -40,6 +52,7 @@ module.exports = {
   // findResources,
   addProjects,
   findProjects,
-  // addTasks,
+  findProjectsById,
+  addTasks,
   findTasks, // include project_name/description
 };
