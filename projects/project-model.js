@@ -1,11 +1,23 @@
 const db = require('../data/db-config');
 
 function findProjects() {
-  return db('projects').select()
+  const projects = db('projects').select()
+  return projects.map(project => {
+    return {
+      ...project,
+      project_completed: project.project_completed === 1 ? true : false
+    };
+  });
 };
 
 function findTasks() {
-  return db('tasks').select()
+  const tasks = db('tasks').select()
+  return tasks.map(task => {
+    return {
+      ...task,
+      task_completed: task.task_completed === 1 ? true : false,
+    };
+  });
 };
 
 function findResources() {
