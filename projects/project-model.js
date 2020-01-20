@@ -4,24 +4,31 @@ function findProjects() {
   return db('projects').select()
 };
 
-function findProjectsById(project_id) {
-  return db('projects')
-  .where({ project_id })
-  .first()
+function findTasks() {
+  return db('tasks').select()
 };
 
-async function addProjects(data) {
-  const [project_id] = await db('projects').insert(data)
-  return db('projects')
-    .where({ project_id })
-    .first()
+function findResources() {
+  return db('resources').select()
 };
 
+function addProjects(data) {
+  return db('projects').insert(data)
+};
+
+function addTasks(data) {
+  return db('tasks').insert(data)
+};
+
+function addResources(data) {
+  return db('resources').insert(data)
+};
 
 module.exports = {
-  // addResources,
-  // findResources,
-  addProjects,
   findProjects,
-  findProjectsById,
+  findTasks,
+  findResources,
+  addProjects,
+  addTasks,
+  addResources
 };

@@ -1,6 +1,5 @@
 const express = require('express');
 const projectModel = require('./project-model');
-
 const router = express.Router();
 
 router.get('/', async (req, res, next) => {
@@ -12,6 +11,24 @@ router.get('/', async (req, res, next) => {
   };
 });
 
+router.get('/resources', async (req, res, next) => {
+  try {
+    const resources = await projectModel.findResources();
+    res.json(resources)
+  } catch(err) {
+    next(err)
+  }
+});
+
+router.get('/tasks', async (req, res, next) => {
+  try {
+    const tasks = await projectModel.findTasks();
+    res.json(tasks)
+  } catch(err) {
+    next(err)
+  }
+});
+
 router.post('/', async (req, res, next) => {
   try {
     const newProject = await projectModel.addProjects(req.body)
@@ -21,32 +38,22 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-router.get('/api/tasks', async (req, res, next) => {
+router.post('/resources', async (req, res, next) => {
   try {
-    res.json(await db('tasks'))
+    const newResource = await projectModel.addResources(req.body)
+    res.status(201).json(newResource)
   } catch(err) {
     next(err)
   }
 });
 
-// router.get('/api/tasks', async (req, res, next) => {
-//   try {
-//     const { project_id } = req.params;
-
-//     const tasks = await projectModel.findTasks(project_id);
-//     res.json(tasks)
-//   } catch(err) {
-//     next(err)
-//   }
-// });
-
-// router.post('/tasks', async (req, res, next) => {
-//   try {
-//     const newTask = await projectModel.addTasks(req.body)
-//     res.status(201).json(newTask)
-//   } catch(err) {
-//     next(err)
-//   }
-// });
+router.post('/tasks', async (req, res, next) => {
+  try {
+    const newTask = await projectModel.addTasks(req.body)
+    res.status(201).json(newTask)
+  } catch(err) {
+    next(err)
+  }
+});
 
 module.exports = router;
