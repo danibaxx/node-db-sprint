@@ -4,7 +4,7 @@ exports.up = async function(knex) {
     table.increments("project_id")
     table.string("project_name", 128).notNullable()
     table.string("project_description", 255).notNullable()
-    table.boolean("project_completed").defaultTo(0).notNullable()
+    table.boolean("project_completed").defaultTo(false).notNullable()
   });
 
   await knex.schema.createTable("resources", (table) => {
@@ -17,7 +17,7 @@ exports.up = async function(knex) {
     table.increments("task_id")
     table.string("task_description", 255).notNullable()
     table.string("task_notes", 255).notNullable()
-    table.boolean("task_completed").defaultTo(0).notNullable()
+    table.boolean("task_completed").defaultTo(false).notNullable()
     table.integer("project_id")
       .notNullable()
       .references("project_id")
