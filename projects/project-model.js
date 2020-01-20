@@ -18,41 +18,10 @@ async function addProjects(data) {
 };
 
 
-function findTasks(project_id) {
-  return db('projects as p')
-    .join(
-      'tasks as t', 
-      't.task_id', 
-      't.project_id'
-    )
-    .where({ project_id })
-    .select( 
-      't.project_id', 
-      't.task_description', 
-      't.task_notes', 
-      't.task_completed', 
-      'p.project_name',
-      'p.project_description'
-    )
-};
-
-async function addTasks(data) {
-  const [task_id] = await db('tasks').insert(data)
-  return db('tasks')
-    .where({ task_id })
-    .first()
-}
-
-
-
-
-
 module.exports = {
   // addResources,
   // findResources,
   addProjects,
   findProjects,
   findProjectsById,
-  addTasks,
-  findTasks, // include project_name/description
 };

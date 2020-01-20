@@ -21,24 +21,32 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-router.get('/:id/tasks', async (req, res, next) => {
+router.get('/api/tasks', async (req, res, next) => {
   try {
-    const { project_id } = req.params;
-
-    const tasks = await projectModel.findTasks(project_id);
-    res.json(tasks)
+    res.json(await db('tasks'))
   } catch(err) {
     next(err)
   }
 });
 
-router.post('/tasks', async (req, res, next) => {
-  try {
-    const newTask = await projectModel.addTasks(req.body)
-    res.status(201).json(newTask)
-  } catch(err) {
-    next(err)
-  }
-});
+// router.get('/api/tasks', async (req, res, next) => {
+//   try {
+//     const { project_id } = req.params;
+
+//     const tasks = await projectModel.findTasks(project_id);
+//     res.json(tasks)
+//   } catch(err) {
+//     next(err)
+//   }
+// });
+
+// router.post('/tasks', async (req, res, next) => {
+//   try {
+//     const newTask = await projectModel.addTasks(req.body)
+//     res.status(201).json(newTask)
+//   } catch(err) {
+//     next(err)
+//   }
+// });
 
 module.exports = router;
