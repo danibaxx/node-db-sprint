@@ -4,4 +4,5 @@ const server = express();
 
 server.use(express.json());
 // server to use project router
+
 module.exports = server;
